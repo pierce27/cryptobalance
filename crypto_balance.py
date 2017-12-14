@@ -8,7 +8,7 @@ app = Flask(__name__)
 api = Api(app)
 
 class CryptoBalance(Resource):
-    def get(self):
+	def get(self):
 		invested = float(request.args.get('invested'))
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/litecoin/')
