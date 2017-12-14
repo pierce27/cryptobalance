@@ -1,1 +1,1 @@
-web: gunicorn app:cryptkeeper
+release: python crypto_balance.py
