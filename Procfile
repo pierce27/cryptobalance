@@ -1,1 +1,1 @@
-web: python crypto_balance.py
+worker: python crypto_balance.py
