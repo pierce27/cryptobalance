@@ -14,22 +14,18 @@ class CryptoBalance(Resource):
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/litecoin/')
 		ltc_price = r.json()
 		ltc_price = float(ltc_price[0]['price_usd'])
-		print 'LTC: ' + str(ltc_price)
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/bitcoin/')
 		btc_price = r.json()
 		btc_price = float(btc_price[0]['price_usd'])
-		print 'BTC: ' + str(btc_price)
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/ethereum/')
 		eth_price = r.json()
 		eth_price = float(eth_price[0]['price_usd'])
-		print 'ETH: ' + str(eth_price)
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/ripple/')
 		xrp_price = r.json()
 		xrp_price = float(xrp_price[0]['price_usd'])
-		print 'XRP: ' + str(xrp_price)
 
 		btc_amt = float(request.args.get('btc'))
 		xrp_amt = float(request.args.get('xrp'))
@@ -53,8 +49,7 @@ api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
 
 
 if __name__ == '__main__':
-     app.run(port=3000)
-     
+	app.run(port=3000)
 
 print 'Total Invested: ' + str(invested)
 print 'Total Value: ' + str(total_usd)
