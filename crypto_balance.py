@@ -1,6 +1,7 @@
 import requests
 import json
 import sys
+import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -49,7 +50,8 @@ api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+	port = int(os.environ.get("PORT", 33507))
+	app.run(host='0.0.0.0', port=port)
 
 # r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 # address_info = r.json()
