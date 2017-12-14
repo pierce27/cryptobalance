@@ -49,7 +49,7 @@ api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5000)
+	app.run(host='0.0.0.0')
 
 # r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 # address_info = r.json()
