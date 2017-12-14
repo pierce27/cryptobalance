@@ -49,11 +49,7 @@ api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
 
 
 if __name__ == '__main__':
-	app.run(port=3000)
-
-print 'Total Invested: ' + str(invested)
-print 'Total Value: ' + str(total_usd)
-print 'Profit: ' + str(profit)
+	app.run(port=80)
 
 # r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 # address_info = r.json()
