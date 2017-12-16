@@ -39,7 +39,7 @@ class CryptoBalance(Resource):
 		xrp_usd = xrp_price*xrp_amt
 		total_usd = btc_usd + ltc_usd + xrp_usd + eth_usd
 		profit = total_usd - invested
-		return {'invested':invested, 'total':total_usd, 'profit': profit, 'btc_price':btc_price, 'ltc_price':ltc_price, 'xrp_price':xrp_price, 'eth_price':eth_price}
+		return {'invested_now':invested, 'total':total_usd, 'profit': profit, 'btc_price':btc_price, 'ltc_price':ltc_price, 'xrp_price':xrp_price, 'eth_price':eth_price}
 
 
 
