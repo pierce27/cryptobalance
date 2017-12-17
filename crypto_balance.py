@@ -56,8 +56,15 @@ api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
 
 
 if __name__ == '__main__':
-	port = int(os.environ.get("PORT", 33507))
-	app.run(host='0.0.0.0', port=port)
+	if (sys.argv[1] == 'dev'):
+		host = '127.0.0.1'
+		port = 3000
+	else:
+		host = '0.0.0.0'
+		port = int(os.environ.get("PORT", 33507))	
+	
+	app.run(host=host, port=port)
+
 
 # r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 # address_info = r.json()
