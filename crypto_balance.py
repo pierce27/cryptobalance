@@ -2,15 +2,18 @@ import requests
 import json
 import sys
 import os
-from flask import Flask, request
+from flask import Flask,request,render_template
 from flask_restful import Resource, Api
+from flask import send_from_directory
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_url_path='', static_folder='dist')
 api = Api(app)
 
 class CryptoBalance(Resource):
-	def get(self):
-		invested = float(request.args.get('invested'))
+	def post(self):
+		data = request.get_json() 
+		invested = float(data['invested'])
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/litecoin/')
 		ltc_price = r.json()
@@ -28,10 +31,10 @@ class CryptoBalance(Resource):
 		xrp_price = r.json()
 		xrp_price = float(xrp_price[0]['price_usd'])
 
-		btc_amt = float(request.args.get('btc'))
-		xrp_amt = float(request.args.get('xrp'))
-		ltc_amt = float(request.args.get('ltc'))
-		eth_amt = float(request.args.get('eth'))
+		btc_amt = float(data['btc'])
+		xrp_amt = float(data['xrp'])
+		ltc_amt = float(data['ltc'])
+		eth_amt = float(data['eth'])
 
 		btc_usd = btc_price*btc_amt
 		ltc_usd = ltc_price*ltc_amt
@@ -45,13 +48,27 @@ class CryptoBalance(Resource):
 
 
 
-api.add_resource(CryptoBalance, '/crypto/balance') # Route_1
+api.add_resource(CryptoBalance, '/cryptkeep') # Route_1
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/js/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(os.path.join('.', 'static', 'js'), filename)    
 
 
 
 if __name__ == '__main__':
-	port = int(os.environ.get("PORT", 33507))
-	app.run(host='0.0.0.0', port=port)
+	if (sys.argv[1] == 'dev'):
+		host = '127.0.0.1'
+		port = 3000
+	else:
+		host = '0.0.0.0'
+		port = int(os.environ.get("PORT", 33507))	
+	
+	app.run(host=host, port=port)
 
 # r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
 # address_info = r.json()

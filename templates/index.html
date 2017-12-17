@@ -1,0 +1,56 @@
+<html ng-app="cryptKeeper" lang="en" class="csstransforms csstransforms3d csstransitions js cssanimations csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+		<title>CryptKeeper</title>
+		<!-- Angular -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.1/angular.min.js" type="text/javascript"></script>
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="js/controllers.js"></script>
+</head>
+
+<body ng-controller="cryptCtrl">
+	<!-- <nav class="navbar navbar-default">
+	</nav>	 -->
+	<div>Hello: {{hi}}</div>
+	<!-- Main View -->
+	<div class="col-md-10" >
+	    <form ng-submit="getBalance()">
+		  <div class="form-group">
+		    <label for="invested">Invested</label>
+		    <input type="string" class="form-control" id="invested" ng-model="invested" placeholder="invested">
+		  </div>
+		  <div class="form-group">
+		    <label for="btc"># of Bitcoin</label>
+		    <input type="string" class="form-control" id="btc" ng-model="btc" placeholder="BCT">
+		  </div>
+		  <div class="form-group">
+		    <label for="ltc"># of Litecoin</label>
+		    <input type="string" class="form-control" id="ltc" ng-model="ltc" placeholder="LTC">
+		  </div>
+		  <div class="form-group">
+		    <label for="eth"># of Ether</label>
+		    <input type="string" class="form-control" id="eth" ng-model="eth" placeholder="ETH">
+		  </div>
+		  <div class="form-group">
+		    <label for="xrp`"># of Ripple</label>
+		    <input type="string" class="form-control" id="xrp" ng-model="xrp" placeholder="XRP">
+		  </div>
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>		
+
+		<div>{{cryptData}}</div>
+
+		<!-- Lines Table -->
+<!--  --> 
+
+
+	</div>	    	
+	    
+
+
+</body>
