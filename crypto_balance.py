@@ -35,6 +35,7 @@ class CryptoBalance(Resource):
 		dent_price = r.json()
 		dent_price = float(dent_price[0]['price_usd'])		
 
+
 		btc_amt = float(data['btc'])
 		xrp_amt = float(data['xrp'])
 		ltc_amt = float(data['ltc'])
@@ -48,9 +49,8 @@ class CryptoBalance(Resource):
 		dent_usd = dent_price*dent_amt
 		total_usd = btc_usd + ltc_usd + xrp_usd + eth_usd + dent_usd
 		profit = total_usd - invested
+
 		return {'invested_now':invested, 'total':total_usd, 'profit': profit, 'btc':[btc_amt, btc_price, btc_usd], 'ltc':[ltc_amt, ltc_price, ltc_usd], 'xrp':[xrp_amt, xrp_price, xrp_usd], 'eth':[eth_amt, eth_price, eth_usd], 'dent':[dent_amt, dent_price, dent_usd]}
-
-
 
 
 
@@ -75,13 +75,3 @@ if __name__ == '__main__':
 		port = int(os.environ.get("PORT", 33507))	
 	
 	app.run(host=host, port=port)
-
-# r = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-# address_info = r.json()
-# btc_usd = address_info['bpi']['USD']['rate_float']
-# ltc_usd = ltc * btc_usd
-# print ltc_usd
-
-# usd_value = address_info['balance'] / 10000
-
-# print usd_value
