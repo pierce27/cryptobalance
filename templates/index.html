@@ -53,13 +53,13 @@
 	<div ng-hide='!hideForm'>
 		<table class="table table-hover">
 		  <tr>
-		    <td> Invested </td> <td> {{ cryptData.invested_now}} </td>
+		    <td> Invested </td> <td> {{ cryptData.invested_now | currency}} </td>
 		  </tr>		  
 		  <tr>
-		    <td> Profit </td> <td> {{ cryptData.profit}} </td>
+		    <td> Profit </td> <td> {{ cryptData.profit | currency}} </td>
 		  </tr>
 		  <tr>
-		    <td> Total </td> <td> {{ cryptData.total}} </td>
+		    <td> Total </td> <td> {{ cryptData.total | currency}} </td>
 		  </tr>
 		</table>
 
@@ -75,32 +75,32 @@
 		  <tr>
 		    <td> BTC </td> 
 		    <td>{{cryptData.btc[0]}}</td>
-		    <td>{{cryptData.btc[1]}}</td>
-		    <td>{{cryptData.btc[2]}}</td>
+		    <td>{{cryptData.btc[1] | currency}}</td>
+		    <td>{{cryptData.btc[2] | currency}}</td>
 		  </tr>	
 		  <tr>
 		    <td> LTC </td> 
 		    <td>{{cryptData.ltc[0]}}</td>
-		    <td>{{cryptData.ltc[1]}}</td>
-		    <td>{{cryptData.ltc[2]}}</td>
+		    <td>{{cryptData.ltc[1] | currency}}</td>
+		    <td>{{cryptData.ltc[2] | currency}}</td>
 		  </tr>			  
 		  <tr>
 		    <td>ETH</td> 
 		    <td>{{cryptData.eth[0]}}</td>
-		    <td>{{cryptData.eth[1]}}</td>
-		    <td>{{cryptData.eth[2]}}</td>
+		    <td>{{cryptData.eth[1] | currency}}</td>
+		    <td>{{cryptData.eth[2] | currency}}</td>
 		  </tr>		  		  
 		  <tr>
 		    <td>XRP</td> 
 		    <td>{{cryptData.xrp[0]}}</td>
-		    <td>{{cryptData.xrp[1]}}</td>
-		    <td>{{cryptData.xrp[2]}}</td>
+		    <td>{{cryptData.xrp[1] | currency}}</td>
+		    <td>{{cryptData.xrp[2] | currency}}</td>
 		  </tr>		  
 		  <tr>
 		    <td>DENT</td> 
 		    <td>{{cryptData.dent[0]}}</td>
-		    <td>{{cryptData.dent[1]}}</td>
-		    <td>{{cryptData.dent[2]}}</td>
+		    <td>{{cryptData.dent[1] | currency: "$" : 4}}</td>
+		    <td>{{cryptData.dent[2] | currency}}</td>
 		  </tr>		  	  
 		</table>
 
