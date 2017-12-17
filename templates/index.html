@@ -22,12 +22,12 @@
 	<div class="col-md-10" ng-hide='hideForm'>
 	    <form ng-submit="getBalance()">
 		  <div class="form-group">
-		    <label for="invested">Invested</label>
+		    <label for="invested">Money Invested</label>
 		    <input type="string" class="form-control" id="invested" ng-model="invested" placeholder="invested">
 		  </div>
 		  <div class="form-group">
 		    <label for="btc"># of Bitcoin</label>
-		    <input type="string" class="form-control" id="btc" ng-model="btc" placeholder="BCT">
+		    <input type="string" class="form-control" id="btc" ng-model="btc" placeholder="BTC">
 		  </div>
 		  <div class="form-group">
 		    <label for="ltc"># of Litecoin</label>
@@ -78,6 +78,12 @@
 		    <td>{{cryptData.btc[1]}}</td>
 		    <td>{{cryptData.btc[2]}}</td>
 		  </tr>	
+		  <tr>
+		    <td> LTC </td> 
+		    <td>{{cryptData.ltc[0]}}</td>
+		    <td>{{cryptData.ltc[1]}}</td>
+		    <td>{{cryptData.ltc[2]}}</td>
+		  </tr>			  
 		  <tr>
 		    <td>ETH</td> 
 		    <td>{{cryptData.eth[0]}}</td>
