@@ -1,1 +1,1 @@
-web: python crypto_balance.py
+web: python crypto_balance.py prod
