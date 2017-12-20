@@ -45,7 +45,7 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 			'ltc': this.ltc,
 			'eth': this.eth,
 			'xrp': this.xrp,
-			'dent': this.dent
+			'bch': this.bch
 		};
 	    
 	    $cookies.cryptkeep = JSON.stringify(cryptInfo);

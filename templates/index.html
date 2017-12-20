@@ -42,8 +42,8 @@
 		    <input type="string" class="form-control" id="xrp" ng-model="xrp" placeholder="XRP">
 		  </div>
 		  <div class="form-group">
-		    <label for="dent"># of DENT</label>
-		    <input type="string" class="form-control" id="dent" ng-model="dent" placeholder="DENT">
+		    <label for="bch"># of BCH</label>
+		    <input type="string" class="form-control" id="bch" ng-model="bch" placeholder="bch">
 		  </div>		  
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>		
@@ -91,16 +91,16 @@
 		    <td>{{cryptData.eth[2] | currency}}</td>
 		  </tr>		  		  
 		  <tr>
-		    <td>XRP</td> 
+		    <td>BCH</td> 
 		    <td>{{cryptData.xrp[0]}}</td>
 		    <td>{{cryptData.xrp[1] | currency}}</td>
 		    <td>{{cryptData.xrp[2] | currency}}</td>
 		  </tr>		  
 		  <tr>
-		    <td>DENT</td> 
-		    <td>{{cryptData.dent[0]}}</td>
-		    <td>{{cryptData.dent[1] | currency: "$" : 4}}</td>
-		    <td>{{cryptData.dent[2] | currency}}</td>
+		    <td>bch</td> 
+		    <td>{{cryptData.bch[0]}}</td>
+		    <td>{{cryptData.bch[1] | currency: "$" : 4}}</td>
+		    <td>{{cryptData.bch[2] | currency}}</td>
 		  </tr>		  	  
 		</table>
 
