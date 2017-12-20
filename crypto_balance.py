@@ -31,7 +31,7 @@ class CryptoBalance(Resource):
 		xrp_price = r.json()
 		xrp_price = float(xrp_price[0]['price_usd'])
 
-		r = requests.get('https://api.coinmarketcap.com/v1/ticker/bch/')
+		r = requests.get('https://api.coinmarketcap.com/v1/ticker/bitcoin-cash/')
 		bch_price = r.json()
 		bch_price = float(bch_price[0]['price_usd'])		
 
