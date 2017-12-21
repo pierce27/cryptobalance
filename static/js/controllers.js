@@ -56,7 +56,7 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 	}
 
 	$scope.newInfo = function(){
-		$scope.invested = $scope.cryptData.invested
+		$scope.invested = $scope.cryptData.invested_now
 		$scope.btc = $scope.cryptData.btc[0]
 		$scope.ltc = $scope.cryptData.ltc[0]
 		$scope.eth = $scope.cryptData.eth[0]
