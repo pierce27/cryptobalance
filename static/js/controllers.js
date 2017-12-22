@@ -60,6 +60,7 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 		$scope.btc = $scope.cryptData.btc[0]
 		$scope.ltc = $scope.cryptData.ltc[0]
 		$scope.eth = $scope.cryptData.eth[0]
+		$scope.xrp = $scope.cryptData.xrp[0]
 		$scope.bch = $scope.cryptData.bch[0]
 		console.log('clicked')
 		$cookies.cryptkeep = false;
