@@ -15,21 +15,22 @@ class CryptoBalance(Resource):
 		data = request.get_json() 
 		invested = float(data['invested'])
 
-		r = requests.get('https://api.coinmarketcap.com/v1/ticker/litecoin/')
+		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-LTC')
 		ltc_price = r.json()
-		ltc_price = float(ltc_price[0]['price_usd'])
+		ltc_price = float(ltc_price['result']['Ask'])
+		print ltc_price
 
-		r = requests.get('https://api.coinmarketcap.com/v1/ticker/bitcoin/')
+		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-BTC')
 		btc_price = r.json()
-		btc_price = float(btc_price[0]['price_usd'])
+		btc_price = float(btc_price['result']['Ask'])
 
-		r = requests.get('https://api.coinmarketcap.com/v1/ticker/ethereum/')
+		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH')
 		eth_price = r.json()
-		eth_price = float(eth_price[0]['price_usd'])
+		eth_price = float(eth_price['result']['Ask'])
 
-		r = requests.get('https://api.coinmarketcap.com/v1/ticker/ripple/')
+		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-XRP')
 		xrp_price = r.json()
-		xrp_price = float(xrp_price[0]['price_usd'])
+		xrp_price = float(xrp_price['result']['Ask'])
 
 		r = requests.get('https://api.coinmarketcap.com/v1/ticker/bitcoin-cash/')
 		bch_price = r.json()
