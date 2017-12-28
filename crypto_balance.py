@@ -18,7 +18,6 @@ class CryptoBalance(Resource):
 		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-LTC')
 		ltc_price = r.json()
 		ltc_price = float(ltc_price['result']['Ask'])
-		print ltc_price
 
 		r = requests.get('https://bittrex.com/api/v1.1/public/getticker?market=USDT-BTC')
 		btc_price = r.json()
