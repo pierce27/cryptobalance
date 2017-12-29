@@ -1,12 +1,28 @@
-var https = require('https'),
-sanitizeHtml = require('sanitize-html')
-var urls = ['https://api.coinmarketcap.com/v1/ticker/bitcoin/', 'https://api.coinmarketcap.com/v1/ticker/litecoin/', 'https://api.coinmarketcap.com/v1/ticker/ethereum/', 'https://api.coinmarketcap.com/v1/ticker/ripple/']
+var https = require('https')
 var url = 'https://bittrex.com/api/v1.1/public/getmarketsummaries'
-var responses = [];
-var completed_requests = 0;
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
+var mongo_url = 'mongodb://apierce:cryptkeep123@ds133557.mlab.com:33557/heroku_bshglnm9'
+// 'mongodb://localhost/test'
+mongoose.connect(mongo_url);
+var User = require('./user_model.js');
+// // Create User Schema
+// var User = mongoose.model('User',{
+//     username: String,
+//     password: String,
+//     investmentData: Object
+// });
 
-exports.info = function(request, response){
+
+
+exports.newInvestmentData = function(request, response){
 	var userData = request.body
+	// Find user and save doc
+	// console.log(request.cookies)
+	User.findOne({ username: request.cookies.user }, function (err, user){
+	  user.investmentData = userData;
+	  user.save();
+	});	
 
 	https.get(url, function(res){
 		// console.log(res)
@@ -29,6 +45,42 @@ exports.info = function(request, response){
 	});
 
 }
+
+exports.getInvestmentData = function(request, response){
+	var userData = {}
+	// Find user based on cookie
+	User.findOne({ 'username': request.cookies.user }, function (err, user) {
+	  if (err) return err;
+	  var userData = user.investmentData
+
+	  https.get(url, function(res){
+		console.log('User Data: '+ JSON.stringify(userData))
+		// console.log(res)
+	    var body = '';
+	    res.on('data', function(chunk){
+	        body += chunk;
+	    });
+	    res.on('end', function(){
+	        var markets = JSON.parse(body);
+	        var rates = getRates(markets.result)
+	        var investmentInfo = calcInvestment(rates, userData)
+	        console.log(investmentInfo)
+
+	        // console.log(markets.result[0])
+	        response.send(investmentInfo)
+
+	    	});
+		}).on('error', function(e){
+	      console.log("Got an error: ", e);
+		});
+	  
+	})
+
+	
+
+}
+
+
 
 var getRates = function(marketData){
 	var rates = {}

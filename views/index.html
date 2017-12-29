@@ -20,12 +20,12 @@
 
 	      <!-- Sign in and sign out buttons -->
 	      <span data-toggle="tooltip" data-placement="right" title="Sign In to save favorite lines">
-	      	<button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': user}" data-toggle="modal" data-target="#signInModal">
+	      	<button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': cryptData}" data-toggle="modal" data-target="#signInModal">
   				Sign In
 		 	</button>
 		  </span>
 
-	      <button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': !user}" ng-click="signOut()" >
+	      <button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': !cryptData}" ng-click="signOut()" >
   			Sign Out
 		 </button>	 
 
@@ -37,7 +37,7 @@
 
 	<!-- Main View -->
 	<div class="col-md-10" ng-hide='hideForm'>
-	    <form ng-submit="getBalance()">
+	    <form ng-submit="newInvestmentData()">
 		  <div class="form-group">
 		    <label for="invested">Money Invested</label>
 		    <input type="string" class="form-control" id="invested" ng-model="invested" placeholder="invested" ng-required="true">
@@ -59,8 +59,8 @@
 		    <input type="string" class="form-control" id="xrp" ng-model="xrp" placeholder="XRP" ng-required="true">
 		  </div>
 		  <div class="form-group">
-		    <label for="bch"># of BCH</label>
-		    <input type="string" class="form-control" id="bch" ng-model="bch" placeholder="bch" ng-required="true">
+		    <label for="bch"># of BCC</label>
+		    <input type="string" class="form-control" id="bcc" ng-model="bcc" placeholder="bch" ng-required="true">
 		  </div>		  
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>		

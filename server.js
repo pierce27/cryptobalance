@@ -11,7 +11,9 @@ var util = require('util'),
   // Login dependencites
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  user = require('./user')
+  user = require('./user'),
+  cookieParser = require('cookie-parser')
+
 // View config
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/resources'));
@@ -21,6 +23,10 @@ app.use(bodyParser.json());
 // Passport login config
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(cookieParser());
 
 
 // Configure passport login strategy
@@ -43,15 +49,15 @@ app.get("/", function(req, res){
 })
 
 
-app.post('/cryptkeep', cryptkeep.info); 
+app.post('/cryptkeep', cryptkeep.newInvestmentData); 
 
 // Get user data
-app.get('/user', user.findUser)
+app.get('/cryptkeep', cryptkeep.getInvestmentData)
 
 // Login and set cookie
 app.post('/login', passport.authenticate('localSignIn'), function(req, res) { 
   res.cookie('user', req.user.username, { maxAge: 2592000000 })
-  console.log(req.user.username)
+  console.log(req.user)
   res.send(req.user); 
 }); 
 

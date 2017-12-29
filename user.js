@@ -1,15 +1,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var url = 'mongodb://apierce:cryptkeep123@ds133557.mlab.com:33557/heroku_bshglnm9'
+var User = require('./user_model.js');
 // 'mongodb://localhost/test'
 mongoose.connect(url);
-
-// Create User Schema
-var User = mongoose.model('User',{
-    username: String,
-    password: String,
-    favorites: Object
-});
 
 
 // Find user in DB and return it when logging in.
@@ -64,19 +58,6 @@ exports.findUser = function(req,res){
 	  res.send(user)
 	  
 	})
-}
-
-// Add or Delete favorite for User
-exports.modifyFavorites = function(req, res){
-
-	// Find user and save doc
-	User.findOne({ username: req.cookies.user }, function (err, user){
-	  user.favorites = req.body;
-	  console.log('saved favorites for  ' + user.username)
-	  res.send(user)
-	  user.save();
-	});
-
 }
 
 

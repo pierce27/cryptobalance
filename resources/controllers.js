@@ -4,7 +4,7 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 
 	$scope.hideTable = true;
 	
-	var getBalance = function(postData)	{
+	var newData = function(postData)	{
 
 	    // Attempt to login to server
 		$http.post('/cryptkeep', postData).
@@ -28,21 +28,22 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 	}
 	
 
-	if(!$cookies.cryptkeep){
-		console.log('no cookie')
-	} else {
-		$scope.hideForm = true;
-		var data = $cookies.cryptkeep;
-		getBalance(data);
-	}
+	// if(!$cookies.cryptkeep){
+	// 	console.log('no cookie')
+	// } else {
+	// 	$scope.hideForm = true;
+	// 	var data = $cookies.cryptkeep;
+	// 	getBalance(data);
+	// }
 
 	// Check for cookie and if it exists get user data from server
 	if(document.cookie){
 		console.log(document.cookie)
-		$http({method: 'GET', url: '/user'}).
+		$scope.hideForm = true;
+		$http({method: 'GET', url: '/cryptkeep'}).
 		success(function(data, status) {
 		  // Set user data in the scope
-		  $scope.user = data; 	
+		  $scope.cryptData = data; 	
 
 		}).
 		error(function(data, status) {
@@ -52,7 +53,7 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 
 	}	
 
-	$scope.getBalance = function(){
+	$scope.newInvestmentData = function(){
 		
 		// Create user object to send to server
 		var cryptInfo = {
@@ -66,18 +67,18 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 	    
 	    $cookies.cryptkeep = JSON.stringify(cryptInfo);
 	    $scope.hideForm = true;
-	    getBalance(cryptInfo);
+	    newData(cryptInfo);
 
 		
 	}
 
 	$scope.newInfo = function(){
 		$scope.invested = $scope.cryptData.invested_now
-		$scope.btc = $scope.cryptData.btc[0]
-		$scope.ltc = $scope.cryptData.ltc[0]
-		$scope.eth = $scope.cryptData.eth[0]
-		$scope.xrp = $scope.cryptData.xrp[0]
-		$scope.bcc = $scope.cryptData.bcc[0]
+		$scope.btc = $scope.cryptData.details.btc.amount
+		$scope.ltc = $scope.cryptData.details.ltc.amount
+		$scope.eth = $scope.cryptData.details.eth.amount
+		$scope.xrp = $scope.cryptData.details.xrp.amount
+		$scope.bcc = $scope.cryptData.details.bcc.amount
 		console.log('clicked')
 		$cookies.cryptkeep = false;
 		$scope.hideForm = false;
@@ -97,11 +98,17 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 		$http.post('/login', user).
 		success(function(data, status) {
 		  $scope.user = data;
-		  if($scope.user.favorites.size > 0){
-		  	$scope.showFavorites = true;
-		  } else{
-		  	$scope.showFavorites = false;
-		  } 
+		$http({method: 'GET', url: '/cryptkeep'}).
+		success(function(data, status) {
+		  // Set user data in the scope
+		  $scope.hideForm = true;		  
+		  $scope.cryptData = data; 	
+
+		}).
+		error(function(data, status) {
+			// TODO Alert if error
+		  	alert(status)
+		});	
 		  $('#signInWarning').addClass('hide')			
 		  $('#signInModal').modal('hide');
 
