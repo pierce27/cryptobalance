@@ -16,8 +16,25 @@
 </head>
 
 <body ng-controller="cryptCtrl">
-	<!-- <nav class="navbar navbar-default">
-	</nav>	 -->
+	<nav class="navbar navbar-default">
+
+	      <!-- Sign in and sign out buttons -->
+	      <span data-toggle="tooltip" data-placement="right" title="Sign In to save favorite lines">
+	      	<button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': user}" data-toggle="modal" data-target="#signInModal">
+  				Sign In
+		 	</button>
+		  </span>
+
+	      <button type="button" class="btn btn-default navbar-btn" ng-class="{'hide': !user}" ng-click="signOut()" >
+  			Sign Out
+		 </button>	 
+
+		 <!-- Log in text for when user is logged in -->
+		 <p ng-class="{'hide': !user}" class="navbar-text pull-right">Logged In as {{user.username}}</p>		 
+	  </div><!-- /.container-fluid -->
+	</nav>	
+
+
 	<!-- Main View -->
 	<div class="col-md-10" ng-hide='hideForm'>
 	    <form ng-submit="getBalance()">
@@ -106,6 +123,69 @@
 
 		<button type="submit" class="btn btn-default" ng-click="newInfo()">Enter New Info</button>
 	</div>
+
+	<!-- Sign In / Sign Up Modal -->
+	<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signIn" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="signInLabel">Sign In / Sign Up</h4>
+	      </div>
+	      <div class="modal-body">
+
+			<div role="tabpanel">
+
+			  <!-- Tabs for signing in or up -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#signIn" aria-controls="signIn" role="tab" data-toggle="tab">Sign In</a></li>
+			    <li role="presentation"><a href="#signUp" aria-controls="signUp" role="tab" data-toggle="tab">Sign Up</a></li>
+			  </ul>
+
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			  	<!-- Sign In -->
+			    <div role="tabpanel" class="tab-pane active" id="signIn">
+			    	<div class="alert alert-danger hide" id="signInWarning" role="alert">{{signInWarning}}</div>
+				    <form ng-submit="signIn()">
+					  <div class="form-group">
+					    <label for="username">User Name</label>
+					    <input type="string" class="form-control" id="username" ng-model="username" placeholder="Enter User Name">
+					  </div>
+					  <div class="form-group">
+					    <label for="password">Password</label>
+					    <input type="password" class="form-control" id="password" ng-model="password" placeholder="Password">
+					  </div>
+					  <button type="submit" class="btn btn-default">Submit</button>
+					</form>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="signUp">
+			    	<!-- Sign Up -->
+			    	<div class="alert alert-danger hide" id="signUpWarning" role="alert">{{signUpWarning}}</div>
+				    <form ng-submit="signUp()">
+					  <div class="form-group">
+					    <label for="username">User Name</label>
+					    <input type="string" class="form-control" id="username" ng-model="username" placeholder="Enter User Name">
+					  </div>
+					  <div class="form-group">
+					    <label for="password">Password</label>
+					    <input type="password" class="form-control" id="password" ng-model="password" placeholder="Password">
+					  </div>
+					  <div class="form-group">
+					    <label for="password">Confirm Password</label>
+					    <input type="password" class="form-control" id="passwordConfirm" ng-model="confirmPassword" placeholder="Password">
+					  </div>					  					  
+					  <button type="submit" class="btn btn-default">Submit</button>
+					</form>
+			    </div>
+			  </div>
+
+			</div>
+
+	      </div>
+	    </div>
+	  </div>
+	</div>	
 	    
 
 

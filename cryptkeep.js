@@ -56,11 +56,8 @@ var calcInvestment = function(rates, userData){
 		if(key == 'invested'){
 			investmentInfo.invested_now = parseInt(userData[key])
 		} else {
-			console.log(key)
 			amount = userData[key];
-			// console.log(rates[key])
 			price = rates[key];
-			// console.log(price)
 			value = amount*price;
 			investmentInfo.total += value;
 
@@ -68,7 +65,6 @@ var calcInvestment = function(rates, userData){
 		}
 
 	}
-	investmentInfo.profit = investmentInfo.total - investmentInfo.invested_now
-	console.log(investmentInfo)
+	investmentInfo.profit = investmentInfo.total - investmentInfo.invested_now;
 	return(investmentInfo)
 }

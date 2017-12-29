@@ -36,6 +36,22 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 		getBalance(data);
 	}
 
+	// Check for cookie and if it exists get user data from server
+	if(document.cookie){
+		console.log(document.cookie)
+		$http({method: 'GET', url: '/user'}).
+		success(function(data, status) {
+		  // Set user data in the scope
+		  $scope.user = data; 	
+
+		}).
+		error(function(data, status) {
+			// TODO Alert if error
+		  	alert(status)
+		});			
+
+	}	
+
 	$scope.getBalance = function(){
 		
 		// Create user object to send to server
@@ -66,6 +82,97 @@ cryptKeeper.controller('cryptCtrl', function CryptCtrl($scope, $http, $cookies) 
 		$cookies.cryptkeep = false;
 		$scope.hideForm = false;
 		$scope.cryptData = {}
+	}
+
+
+	// SIGN IN 
+	$scope.signIn = function(){
+		// Create user object to send to server
+	    var user = {
+	      'username': this.username,
+	      'password': this.password
+	    };
+
+	    // Attempt to login to server
+		$http.post('/login', user).
+		success(function(data, status) {
+		  $scope.user = data;
+		  if($scope.user.favorites.size > 0){
+		  	$scope.showFavorites = true;
+		  } else{
+		  	$scope.showFavorites = false;
+		  } 
+		  $('#signInWarning').addClass('hide')			
+		  $('#signInModal').modal('hide');
+
+		}).
+		error(function(data, status) {
+
+	    	$scope.signInWarning = 'Incorrect Login'
+	    	$('#signInWarning').removeClass('hide')			
+			
+		  
+		});			
+	}
+
+	// SIGN UP
+	$scope.signUp = function(){
+		// Create user object to send to sever
+	    var user = {
+	      'username': this.username,
+	      'password': this.password
+	    };
+
+
+
+	    // Check that passwords match
+	    if(this.password != this.confirmPassword){
+	    	$scope.signUpWarning = 'Passwords Do Not Match'
+	    	$('#signUpWarning').removeClass('hide')
+	    } else if(this.username.length < 6 || this.password.length < 6){
+	    	$scope.signUpWarning = 'Username / Pssword must be 6 characters or more'
+	    	$('#signUpWarning').removeClass('hide')	    	
+	    } else{
+	    	// If passwords match then send data to server
+			$http.post('/signUp', user).
+			success(function(data, status) {
+			  // Send user object of scope to the newly create user
+			  $scope.user = data;
+		  	  // Hide sign in modal
+		  	  $('#signUpWarning').addClass('hide')
+			  $('#signInModal').modal('hide');
+			  $scope.signUpWarning = ''
+
+			}).
+			error(function(data, status) {
+				// Alert if error  
+				alert('User Name Taken')
+			  
+			});				    	
+	    }
+
+		
+	}	
+
+	// SIGN OUT
+	$scope.signOut = function(){
+		// Logout from server so cookies can be cleared
+		$http.get('/logout').
+		success(function(data, status){
+			// Delete user object
+			$scope.user = '';
+			// Clear cookies
+			document.cookie = '';
+			// Hide favorites because user is not logged in
+			$scope.showFavorites = false;
+			// Show sign in modal to sign in again if needed
+			$('#signInModal').modal('show');
+		}).
+		error(function(data, status){
+			// TODO Handle error
+			console.log(status)
+
+		})
 	}
 
 
