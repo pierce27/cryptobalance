@@ -1,70 +1,111 @@
 <html ng-app="cryptKeeper" lang="en" class="csstransforms csstransforms3d csstransitions js cssanimations csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
-		<title>MTA Status</title>
-		<!-- Angular -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.1/angular.min.js" type="text/javascript"></script>
-		<script src="https://code.angularjs.org/1.4.0-beta.1/angular-sanitize.js" type="text/javascript"></script>
-		<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script src="/controllers.js"></script>
+	<title>CryptKeeper</title>
+	<!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.1/angular.min.js" type="text/javascript"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+	<script src="https://code.angularjs.org/1.4.0-beta.1/angular-sanitize.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="controllers.js"></script>
 </head>
 
 <body ng-controller="cryptCtrl">
 	<!-- <nav class="navbar navbar-default">
 	</nav>	 -->
-
 	<!-- Main View -->
-	<div class="col-md-10" >
-		<span>{{litecoin}}</span>
-
+	<div class="col-md-10" ng-hide='hideForm'>
 	    <form ng-submit="getBalance()">
 		  <div class="form-group">
-		    <label for="invested">Invested</label>
-		    <input type="string" class="form-control" id="invested" ng-model="invested" placeholder="invested">
+		    <label for="invested">Money Invested</label>
+		    <input type="string" class="form-control" id="invested" ng-model="invested" placeholder="invested" ng-required="true">
 		  </div>
 		  <div class="form-group">
 		    <label for="btc"># of Bitcoin</label>
-		    <input type="string" class="form-control" id="btc" ng-model="btc" placeholder="BCT">
+		    <input type="string" class="form-control" id="btc" ng-model="btc" placeholder="BTC" ng-required="true">
 		  </div>
 		  <div class="form-group">
 		    <label for="ltc"># of Litecoin</label>
-		    <input type="string" class="form-control" id="ltc" ng-model="ltc" placeholder="LTC">
+		    <input type="string" class="form-control" id="ltc" ng-model="ltc" placeholder="LTC" ng-required="true">
 		  </div>
 		  <div class="form-group">
 		    <label for="eth"># of Ether</label>
-		    <input type="string" class="form-control" id="eth" ng-model="eth" placeholder="ETH">
+		    <input type="string" class="form-control" id="eth" ng-model="eth" placeholder="ETH" ng-required="true">
 		  </div>
 		  <div class="form-group">
-		    <label for="xrp`"># of Ripple</label>
-		    <input type="string" class="form-control" id="xrp" ng-model="xrp" placeholder="XRP">
+		    <label for="xrp"># of Ripple</label>
+		    <input type="string" class="form-control" id="xrp" ng-model="xrp" placeholder="XRP" ng-required="true">
 		  </div>
+		  <div class="form-group">
+		    <label for="bch"># of BCH</label>
+		    <input type="string" class="form-control" id="bch" ng-model="bch" placeholder="bch" ng-required="true">
+		  </div>		  
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>		
-
 		<!-- Lines Table -->
-	    <table class="table table-hover">
-	      <tbody>
-	        <tr ng-repeat="line in lines | filter:search | filter:favoritesFilter ">
-	          <td>{{line.name[0]}}</td>
-	          <!-- Status display, change color with ng-class depending on status -->
-	          <td><span class="label" ng-class="{'label-success': line.status[0] == 'GOOD SERVICE', 'label-warning': line.status[0] == 'PLANNED WORK' || line.status[0] == 'SERVICE CHANGE', 'label-danger': line.status[0] == 'DELAYS'}">{{line.status[0]}}</span></td>
-	          <!-- Info button for more details only if they are available -->
-	          <td><a ng-click="displayDetails(line)"><span ng-class="{'hide': !line.text[0]}" class="glyphicon glyphicon-info-sign"></span></a></td>
-	          <td>{{line.Date[0]}} {{line.Time[0]}}</td>
-	          <!-- Add or remove favorites check box -->
-	          <td><input ng-click='modifyFavorites(line)' ng-model='user.favorites[line.name[0]]'  type="checkbox"></td>
-	          
+<!--  --> 
+	</div>
+	<div ng-hide='!hideForm'>
+		<table class="table table-hover">
+		  <tr>
+		    <td> Invested </td> <td> {{ cryptData.invested_now | currency}} </td>
+		  </tr>		  
+		  <tr>
+		    <td> Profit </td> <td> {{ cryptData.profit | currency}} </td>
+		  </tr>
+		  <tr>
+		    <td> Total </td> <td> {{ cryptData.total | currency}} </td>
+		  </tr>
+		</table>
+
+		<table class="table table-hover">
+	      <thead>
+	        <tr>
+	          <th>Currency</th>
+	          <th>Amount</th>
+	          <th>Price</th>
+	          <th>Total</th>
 	        </tr>
-	      </tbody>
-	    </table>    
+	      </thead>			
+		  <tr>
+		    <td> BTC </td> 
+		    <td>{{cryptData.details.btc.amount}}</td>
+		    <td>{{cryptData.details.btc.price | currency}}</td>
+		    <td>{{cryptData.details.btc.value | currency}}</td>
+		  </tr>	
+		  <tr>
+		    <td> LTC </td> 
+		    <td>{{cryptData.details.ltc.amount}}</td>
+		    <td>{{cryptData.details.ltc.price | currency}}</td>
+		    <td>{{cryptData.details.ltc.value | currency}}</td>		    
+		  </tr>			  
+		  <tr>
+		    <td>ETH</td> 
+		    <td>{{cryptData.details.eth.amount}}</td>
+		    <td>{{cryptData.details.eth.price | currency}}</td>
+		    <td>{{cryptData.details.eth.value | currency}}</td>
+		  </tr>		  		  
+		  <tr>
+		    <td>Ripple</td> 
+		    <td>{{cryptData.details.xrp.amount}}</td>
+		    <td>{{cryptData.details.xrp.price | currency}}</td>
+		    <td>{{cryptData.details.xrp.value | currency}}</td>
+		  </tr>		  
+		  <tr>
+		    <td>BCC</td> 
+		    <td>{{cryptData.details.bcc.amount}}</td>
+		    <td>{{cryptData.details.bcc.price | currency}}</td>
+		    <td>{{cryptData.details.bcc.value | currency}}</td>
+		  </tr>		  	  
+		</table>
 
-
-	</div>	    	
+		<button type="submit" class="btn btn-default" ng-click="newInfo()">Enter New Info</button>
+	</div>
 	    
 
 
