@@ -4,10 +4,15 @@
   "description": "stores all of your crypto info",
   "main": "cryptkeep.js",
   "dependencies": {
+    "bcrypt": "",
     "consolidate": "^0.10.0",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.2.3",
     "express": "^4.11.1",
     "https": "^1.0.0",
+    "mongoose": "^5.0.0-rc0",
+    "passport": "",
+    "passport-local": "",
     "sanitize-html": "^1.5.2"
   },
   "devDependencies": {},
