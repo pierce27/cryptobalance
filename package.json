@@ -4,7 +4,7 @@
   "description": "stores all of your crypto info",
   "main": "cryptkeep.js",
   "dependencies": {
-    "bcrypt":"0.8.0",
+    "bcrypt": "",
     "consolidate": "^0.10.0",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.2.3",
