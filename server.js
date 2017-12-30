@@ -32,6 +32,7 @@ app.use(cookieParser());
 // Configure passport login strategy
 passport.use('localSignIn', new LocalStrategy(function(username, password, done) {
     // no authentication logic here... just return done with an object with 2 fields
+    //
     console.log(username);
     user.findUserLogin(username, password, done);
 }));
